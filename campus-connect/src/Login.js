@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import './App.css'
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -20,7 +21,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('/api/login', formData);
+      const response = await axios.post(`https://uniswap-backend-4hjg.onrender.comi/login`);
       setMessage('Login successful!');
     } catch (err) {
       setMessage(err.response.data.error);
@@ -28,7 +29,7 @@ const Login = () => {
   };
 
   return (
-    <div>
+    <div className='Register'>
         <p className="welcome">Campus Connect: <br/>Your hub for exchanging books and supplies,<br/> making student life simpler and more sustainable.</p>
         <div className="overlay-container">
   <div className="overlay"></div>
