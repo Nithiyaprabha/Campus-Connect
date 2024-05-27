@@ -26,6 +26,9 @@ import Login from './Login'; // Adjust the import path as needed
  import './App.css';
 import HomePage from './HomePage';
 import AboutUs from './Aboutus';
+import AddProduct from './Addproduct';
+import ForgotPassword from './ForgotPassword';
+import Home from './Home';
 
 const App = () => {
   return (
@@ -36,6 +39,9 @@ const App = () => {
           <Route path="/register" element={<Register />}/>
           <Route path="/login" element={<Login />} />
           <Route path="/about" element={<AboutUs />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/addproduct" element={<AddProduct />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
         </Routes>
       </div>
     </Router>

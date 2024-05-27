@@ -157,14 +157,11 @@ const Register = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    password: '',
+    password: ''
   });
 
-const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
   const [message, setMessage] = useState('');
-  const navigate = useNavigate(); // useHistory hook for navigation
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({
@@ -177,7 +174,7 @@ const [name, setName] = useState("");
     event.preventDefault();
 
     try {
-      const response = await fetch(`https://uniswap-backend-4hjg.onrender.com/register`, {
+      const response = await fetch(`https://uniswap-backend-gj25.onrender.com/api/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -186,18 +183,12 @@ const [name, setName] = useState("");
       });
 
       if (response.ok) {
-        const data = await response.json();
-        console.log("Response Data:", data); // Log the response data
-        const userId = data._id;
-        if (!userId) {
-          throw new Error("User ID not returned from backend");
-        }
-        // toast.success("Registration successful! Redirecting...");
-        // Redirect to appropriate dashboard based on role
-        navigate.push(formData.role === "trainee" ? `/trainee-dashboard?traineeId=${userId}` : `/trainer-dashboard?trainerId=${userId}`);
+        const user = await response.json();
+        localStorage.setItem('adminData', JSON.stringify(user));
+        navigate(`/home?userId=${user._id}`);
       } else {
-        const data = await response.json();
-        setMessage(data.error);
+        const errorData = await response.json();
+        setMessage(errorData.error || "Registration failed. Please try again.");
       }
     } catch (error) {
       console.error("Error:", error);
@@ -238,7 +229,6 @@ const [name, setName] = useState("");
             onChange={handleChange}
             required
           />
-      
           <button type="submit">Register</button>
         </form>
         {message && <p>{message}</p>}
@@ -252,3 +242,5 @@ const [name, setName] = useState("");
 };
 
 export default Register;
+
+
