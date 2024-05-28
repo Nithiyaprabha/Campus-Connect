@@ -49,6 +49,9 @@ function NavBar2() {
           <Link to={`/addproduct?userId=${userId}`}>Add Product</Link>
         </li>
         <li>
+          <Link to={`/addproduct?userId=${userId}`}>Cart</Link>
+        </li>
+        <li>
           <button
             className="btn btn-link nav-link"
             onClick={() => {
