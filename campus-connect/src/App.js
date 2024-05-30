@@ -30,6 +30,7 @@ import AddProduct from './Addproduct';
 import ForgotPassword from './ForgotPassword';
 import Home from './Home';
 import Cart from './Cart';
+import Products from './Products';
 
 const App = () => {
   return (
@@ -41,9 +42,11 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/about" element={<AboutUs />} />
           <Route path="/home" element={<Home />} />
+          <Route path="/products" element={<Products />} />
           <Route path="/addproduct" element={<AddProduct />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
+          
         </Routes>
       </div>
     </Router>

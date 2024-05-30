@@ -419,7 +419,7 @@ const AddProduct = () => {
                         <MenuItem value="Beverages">Beverages</MenuItem>
                         <MenuItem value="Personal Care">Personal Care</MenuItem>
                         <MenuItem value="Home Care">Home Care</MenuItem>
-                        <MenuItem value="Mom & Baby Care">Mom & Baby Care</MenuItem>
+                        <MenuItem value="Books">Books</MenuItem>
                         <MenuItem value="Pets">Pets</MenuItem>
                     </Select>
 
