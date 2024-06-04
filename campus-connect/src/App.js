@@ -31,6 +31,9 @@ import ForgotPassword from './ForgotPassword';
 import Home from './Home';
 import Cart from './Cart';
 import Products from './Products';
+import WishlistPage from './Wishlist';
+import ViewProductsPage from './ViewProducts';
+import CartPage from './Cart';
 
 const App = () => {
   return (
@@ -46,7 +49,9 @@ const App = () => {
           <Route path="/addproduct" element={<AddProduct />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
-          
+          <Route path="/wishlist" element={<WishlistPage />} />
+          <Route path="/viewproducts" element={<ViewProductsPage />} />
+          <Route path="/cart" element={<CartPage />} />
         </Routes>
       </div>
     </Router>

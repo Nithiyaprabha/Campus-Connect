@@ -1,148 +1,143 @@
-// src/components/Cart.js
-// import React, { useEffect, useState } from 'react';
-// import axios from 'axios';
-// import './cart.css';
-
-// const Cart = ({ userID }) => {
-//     const [products, setProducts] = useState([]);
-//     const [formData, setFormData] = useState({
-//         adTitle: '',
-//         description: '',
-//         price: '',
-//         category: '',
-//         images: []
-//     });
-
-//     useEffect(() => {
-//         fetchCartProducts();
-//     }, [userID]);
-
-//     const fetchCartProducts = () => {
-//         axios.get(`http://localhost:8000/addToCart/${userID}`)
-//             .then(response => {
-//                 setProducts(response.data);
-//             })
-//             .catch(error => {
-//                 console.error("There was an error fetching the cart products!", error);
-//             });
-//     };
-
-//     const handleChange = (e) => {
-//         const { name, value } = e.target;
-//         setFormData({ ...formData, [name]: value });
-//     };
-
-//     const handleFileChange = (e) => {
-//         setFormData({ ...formData, images: e.target.files });
-//     };
-
-//     const handleSubmit = async (e) => {
-//         e.preventDefault();
-//         const data = new FormData();
-//         data.append('adTitle', formData.adTitle);
-//         data.append('description', formData.description);
-//         data.append('price', formData.price);
-//         data.append('category', formData.category);
-//         data.append('userId', userID);
-//         for (let i = 0; i < formData.images.length; i++) {
-//             data.append('images', formData.images[i]);
-//         }
-
-//         try {
-//             await axios.post('http://localhost:5000/api/products/uploadProducts', data, {
-//                 headers: {
-//                     'Content-Type': 'multipart/form-data'
-//                 }
-//             });
-//             alert('Product added successfully');
-//             fetchCartProducts(); // Fetch the updated list of cart products
-//         } catch (error) {
-//             console.error('There was an error uploading the product!', error);
-//             alert('Error uploading product');
-//         }
-//     };
-
-//     return (
-//         <div className="cart-container">
-//             <h1>Add Product</h1>
-//             <form className="add-product-form" onSubmit={handleSubmit}>
-//                 <input type="text" name="adTitle" value={formData.adTitle} onChange={handleChange} placeholder="Ad Title" required />
-//                 <textarea name="description" value={formData.description} onChange={handleChange} placeholder="Description" required></textarea>
-//                 <input type="number" name="price" value={formData.price} onChange={handleChange} placeholder="Price" required />
-//                 <input type="text" name="category" value={formData.category} onChange={handleChange} placeholder="Category" required />
-//                 <input type="file" name="images" onChange={handleFileChange} multiple required />
-//                 <button type="submit">Add Product</button>
-//             </form>
-
-//             <h1>Shopping Cart</h1>
-//             <div className="cart">
-//                 {products.map(product => (
-//                     <div key={product._id} className="product">
-//                         <div className="product-images">
-//                             {product.photos.map((photo, index) => (
-//                                 <img key={index} src={photo} alt={`${product.adTitle} - ${index + 1}`} className="product-image" />
-//                             ))}
-//                         </div>
-//                         <div className="product-info">
-//                             <h2>{product.adTitle}</h2>
-//                             <p>Category: {product.category}</p>
-//                             <p>Price: ${product.price}</p>
-//                             <p>{product.description}</p>
-//                             <p>Added by: {product.addedBy}</p>
-//                         </div>
-//                     </div>
-//                 ))}
-//             </div>
-//         </div>
-//     );
-// };
-
-// export default Cart;
-
-// src/components/Cart.js
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+import { FaTrash } from 'react-icons/fa';
 import './cart.css';
+import Navbar2 from './Navbar2';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-const Cart = ({ userID }) => {
-    const [products, setProducts] = useState([]);
+const CartPage = () => {
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const userId = searchParams.get('userId');
 
-    useEffect(() => {
-        fetchCartProducts();
-    }, [userID]);
+  const [cartProducts, setCartProducts] = useState([]);
 
-    const fetchCartProducts = () => {
-        axios.get(`http://localhost:8000/api/addToCart/${userID}`)
-            .then(response => {
-                setProducts(response.data);
-            })
-            .catch(error => {
-                console.error("There was an error fetching the cart products!", error);
-            });
+  useEffect(() => {
+    const fetchCartProducts = async () => {
+      try {
+        if (!userId) return;
+
+        const response = await fetch(`https://uniswap-backend-gj25.onrender.com/api/cart?userId=${userId}`);
+        if (!response.ok) {
+          throw new Error('Failed to fetch cart products');
+        }
+        const cartData = await response.json();
+
+        const products = await Promise.all(cartData.map(async (cartItem) => {
+          try {
+            const productResponse = await fetch(`https://uniswap-backend-gj25.onrender.com/api/products2?productId=${cartItem._id}`);
+            if (!productResponse.ok) {
+              throw new Error('Failed to fetch product');
+            }
+            return productResponse.json();
+          } catch (error) {
+            console.error(`Error fetching product with ID ${cartItem._id}:`, error);
+            return null;
+          }
+        }));
+
+        setCartProducts(products.filter(product => product !== null));
+      } catch (error) {
+        console.error('Error fetching cart products:', error);
+      }
     };
 
-    return (
-        <div className="cart-container">
-            <h1>Shopping Cart</h1>
-            <div className="cart">
-                {products.map(product => (
-                    <div key={product._id} className="product">
-                        <div className="product-images">
-                            {product.photos.map((photo, index) => (
-                                <img key={index} src={photo} alt={`${product.adTitle} - ${index + 1}`} className="product-image" />
-                            ))}
-                        </div>
-                        <div className="product-info">
-                            <h2>{product.adTitle}</h2>
-                            <p>Category: {product.category}</p>
-                            <p>Price: ${product.price}</p>
-                            <p>{product.description}</p>
-                        </div>
-                    </div>
-                ))}
-            </div>
-        </div>
-    );
+    fetchCartProducts();
+  }, [userId]);
+
+  const removeFromCart = async (productId) => {
+    try {
+      const response = await fetch(`https://uniswap-backend-gj25.onrender.com/api/removecart/${userId}/${productId}`, { method: 'DELETE' });
+      if (!response.ok) {
+        toast.error("Failed to remove product from cart");
+      } else {
+        toast.success("Product removed successfully!");
+        setCartProducts(cartProducts.filter(product => product._id !== productId));
+      }
+    } catch (error) {
+      console.error('Error removing product from cart:', error);
+    }
+  };
+
+  const checkoutProduct = async (productId) => {
+    try {
+      const response = await fetch(`https://uniswap-backend-gj25.onrender.com/api/checkout`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ userId, productId }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to proceed to checkout');
+      }
+
+      toast.success('Product checkout successful!');
+      setCartProducts(cartProducts.filter(product => product._id !== productId));
+    } catch (error) {
+      console.error('Error during checkout:', error);
+      toast.error(error.message);
+    }
+  };
+
+  const checkoutAll = async () => {
+    try {
+      const response = await fetch(`https://uniswap-backend-gj25.onrender.com/api/checkout`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ userId }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to proceed to checkout');
+      }
+
+      toast.success('Checkout successful!');
+      setCartProducts([]);
+    } catch (error) {
+      console.error('Error during checkout:', error);
+      toast.error(error.message);
+    }
+  };
+
+  return (
+    <>
+      <Navbar2 />
+      <ToastContainer autoClose={2000} />
+      <div>
+        <h1>Cart</h1>
+        {cartProducts.length === 0 ? (
+          <div className="empty-cart-message">
+            <h2>Your cart is empty</h2>
+            <p>Add some products to your cart now!</p>
+          </div>
+        ) : (
+          <div className="cart-container">
+            {cartProducts.map(product => (
+              <div key={product._id} className="cart-item">
+                <img src={product.photos[0]} alt={product.productName} />
+                <div className="cart-details">
+                  <h3>{product.productName}</h3>
+                  <p>Quantity: {product.quantity}</p>
+                  <p>Price: ${product.price}</p>
+                  <p>Description: {product.description}</p>
+                  <div className="buttons">
+                    <button onClick={() => removeFromCart(product._id)} className='remove-btn'><FaTrash className="remove-icon" /> Remove</button>
+                    <button onClick={() => checkoutProduct(product._id)} className='checkout-btn'>Checkout</button>
+                  </div>
+                </div>
+              </div>
+            ))}
+            <button className='checkout-btn' onClick={checkoutAll}>Proceed to Checkout All</button>
+          </div>
+        )}
+      </div>
+    </>
+  );
 };
 
-export default Cart;
+export default CartPage;

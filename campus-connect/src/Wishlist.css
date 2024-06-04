@@ -1,18 +1,15 @@
-/* Category title styling */
-.category {
-    margin: 20px;
+.category{
+    margin : 20px;
   }
   
-  /* Cart container styling */
-  .cart-container {
+  .wishlist-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 20px;
     margin: 20px; /* Add margin */
   }
   
-  /* Cart item styling */
-  .cart-item {
+  .wishlist-item {
     border: 1px solid #ccc;
     border-radius: 5px;
     overflow: hidden;
@@ -21,40 +18,34 @@
     height: 100%; /* Ensure all items have the same height */
   }
   
-  /* Cart item image styling */
-  .cart-item img {
+  .wishlist-item img {
     width: 100%;
     height: 200px;
     object-fit: cover;
   }
   
-  /* Cart item details styling */
-  .cart-details {
+  .wishlist-details {
     padding: 15px;
   }
   
-  /* Cart item title styling */
-  .cart-details h3 {
+  .wishlist-details h3 {
     margin: 10px 0; /* Add spacing */
     font-size: 20px;
     color: #333;
     font-weight: 600;
   }
   
-  /* Cart item description and other details styling */
-  .cart-details p {
+  .wishlist-details p {
     margin: 5px 0;
     font-weight: 600;
   }
   
-  /* Buttons container styling */
   .buttons {
     display: flex;
     justify-content: space-between;
     margin-top: auto; /* Push buttons to the bottom */
   }
   
-  /* Buttons styling */
   .buttons button {
     padding: 10px 20px; /* Adjusted padding */
     border: none;
@@ -63,7 +54,7 @@
     transition: transform 0.3s ease, background-color 0.3s ease; /* Add transition for smooth effect */
   }
   
-  /* Remove button styling */
+  /* Remove button */
   .remove-btn {
     background-color: #952518; /* Red */
     color: white;
@@ -72,17 +63,17 @@
     margin-right: 10px; /* Add margin */
   }
   
-  /* Checkout button styling */
-  .checkout-btn {
-    background-color: #136736; /* Green */
-    color: white;
+  /* Add to Cart button */
+  .add-to-cart-btn {
+    /* background-color: #136736; Green */
+    color: #136736;
     font-family: 'Alegreya', serif;
     font-weight: bold;
     margin-left: 10px; /* Add margin */
   }
   
   /* Spacing between buttons */
-  .remove-btn + .checkout-btn {
+  .remove-btn + .add-to-cart-btn {
     margin-left: 10px;
   }
   
@@ -91,12 +82,13 @@
     background-color: #c0392b; /* Darker Red */
   }
   
-  .checkout-btn:hover {
-    background-color: #219653; /* Darker Green */
+  .add-to-cart-btn:hover {
+    background-color: #219653;
+    color:white; /* Darker Green */
   }
   
-  /* Empty cart message styling */
-  .empty-cart-message {
+  /*cart*/
+  .empty-wishlist-message {
     text-align: center;
     padding: 20px;
     background-color: #f8f9fa;
@@ -105,14 +97,15 @@
     margin-bottom: 20px;
   }
   
-  .empty-cart-message h2 {
+  .empty-wishlist-message h2 {
     color: #495057;
     font-size: 24px;
     margin-bottom: 10px;
   }
   
-  .empty-cart-message p {
+  .empty-wishlist-message p {
     color: #6c757d;
     font-size: 16px;
   }
+  
   
