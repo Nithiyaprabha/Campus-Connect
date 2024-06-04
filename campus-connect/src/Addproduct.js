@@ -396,7 +396,8 @@ const AddProduct = () => {
                         onChange={handleChange} 
                         value={product.adTitle}
                         name='adTitle' 
-                        placeholder="Ad Title" 
+                        placeholder="Ad Title"
+                        style={{border:"1px solid black"}} 
                     />
                     <InputTextField 
                         onChange={handleChange} 
@@ -404,12 +405,13 @@ const AddProduct = () => {
                         name='price' 
                         placeholder="Price" 
                         type="number"
+                        style={{border:"1px solid black"}}
                     />
                     <Select
                         value={category}
                         onChange={handleCategoryChange}
                         displayEmpty
-                        style={{ minWidth: '200px', margin: '10px' }}
+                        style={{ minWidth: '200px', margin: '10px',border:"1px solid black",padding:"2px" }}
                     >
                         <MenuItem value="" disabled>Select Category</MenuItem>
                         <MenuItem value="Fruits & Vegetables">Fruits & Vegetables</MenuItem>
@@ -444,7 +446,7 @@ const AddProduct = () => {
                     value={product.description}
                     name='description'
                     onChange={handleChange}
-                    style={{ width: '100%', border: 'none', marginTop: '10px', fontSize: '18px', minHeight: '100px', resize: 'vertical' }}
+                    style={{ width: '100%', border: 'none', marginTop: '10px', fontSize: '18px', minHeight: '100px', resize: 'vertical',border:"1px solid black"}}
                 />
             </Container>
         </>
