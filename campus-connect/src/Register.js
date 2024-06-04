@@ -1,72 +1,4 @@
-// import React, { useState } from 'react';
-// import axios from 'axios';
-// import { Link } from 'react-router-dom';
 
-// const Register = () => {
-//   const [formData, setFormData] = useState({
-//     name: '',
-//     email: '',
-//     password: ''
-//   });
-
-//   const [message, setMessage] = useState('');
-
-//   const handleChange = (e) => {
-//     setFormData({
-//       ...formData,
-//       [e.target.name]: e.target.value
-//     });
-//   };
-
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-//     try {
-//       const response = await axios.post('/api/register', formData);
-//       setMessage('Registration successful!');
-//     } catch (err) {
-//       setMessage(err.response.data.error);
-//     }
-//   };
-
-//   return (
-//     <div className="form-container">
-//       <h2>Register</h2>
-//       <form onSubmit={handleSubmit}>
-//         <input
-//           type="text"
-//           name="name"
-//           placeholder="Name"
-//           value={formData.name}
-//           onChange={handleChange}
-//           required
-//         />
-//         <input
-//           type="email"
-//           name="email"
-//           placeholder="Email"
-//           value={formData.email}
-//           onChange={handleChange}
-//           required
-//         />
-//         <input
-//           type="password"
-//           name="password"
-//           placeholder="Password"
-//           value={formData.password}
-//           onChange={handleChange}
-//           required
-//         />
-//         <button type="submit">Register</button>
-//       </form>
-//       {message && <p>{message}</p>}
-//       <p>
-//         Already have an account? <Link to="/login">Login</Link>
-//       </p>
-//     </div>
-//   );
-// };
-
-// export default Register;
 
 // import React, { useState } from 'react';
 // import axios from 'axios';
@@ -244,10 +176,12 @@
 // export default Register;
 
 
-import React from 'react';
+import React, { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { FaUserPlus, FaUser, FaLock } from 'react-icons/fa';
 import background from './photo-1607237138185-eedd9c632b0b.avif';
+import './App.css';
 
 const Background = styled.div`
   background-image: url(${background});
@@ -278,7 +212,7 @@ const RegisterContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center; /* Center the content vertically */
+  justify-content: center;
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -370,7 +304,7 @@ const LinksContainer = styled.div`
   margin-top: 20px;
 `;
 
-const Link = styled.a`
+const StyledLink = styled(Link)`
   color: #007bff;
   text-decoration: none;
   font-size: 14px;
@@ -380,6 +314,48 @@ const Link = styled.a`
 `;
 
 const Register = () => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    password: ''
+  });
+
+  const [message, setMessage] = useState('');
+  const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    try {
+      const response = await fetch('https://uniswap-backend-4hjg.onrender.com/api/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      });
+
+      if (response.ok) {
+        const user = await response.json();
+        localStorage.setItem('adminData', JSON.stringify(user));
+        navigate(`/home?userId=${user._id}`);
+      } else {
+        const errorData = await response.json();
+        setMessage(errorData.error || "Registration failed. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      setMessage("An error occurred. Please try again later.");
+    }
+  };
+
   return (
     <Background>
       <RegisterContainer>
@@ -387,21 +363,45 @@ const Register = () => {
           <Icon><FaUserPlus /></Icon>
           <RegisterNow>Register Now</RegisterNow>
         </Title>
-        <InputContainer>
-          <Icon><FaUser /></Icon>
-          <Input type="text" placeholder="Username" />
-        </InputContainer>
-        <InputContainer>
-          <Icon><FaLock /></Icon>
-          <Input type="password" placeholder="Password" />
-        </InputContainer>
-        <InputContainer>
-          <Icon><FaLock /></Icon>
-          <Input type="password" placeholder="Confirm Password" />
-        </InputContainer>
-        <Button>Register</Button>
+        <form onSubmit={handleSubmit}>
+          <InputContainer>
+            <Icon><FaUser /></Icon>
+            <Input
+              type="text"
+              name="name"
+              placeholder="Name"
+              value={formData.name}
+              onChange={handleChange}
+              required
+            />
+          </InputContainer>
+          <InputContainer>
+            <Icon><FaUser /></Icon>
+            <Input
+              type="email"
+              name="email"
+              placeholder="Email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
+          </InputContainer>
+          <InputContainer>
+            <Icon><FaLock /></Icon>
+            <Input
+              type="password"
+              name="password"
+              placeholder="Password"
+              value={formData.password}
+              onChange={handleChange}
+              required
+            />
+          </InputContainer>
+          <Button type="submit">Register</Button>
+        </form>
+        {message && <p>{message}</p>}
         <LinksContainer>
-          <Link href="/login">Already have an account? Login</Link>
+          <StyledLink to="/login">Already have an account? Login</StyledLink>
         </LinksContainer>
       </RegisterContainer>
     </Background>

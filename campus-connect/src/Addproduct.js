@@ -234,7 +234,7 @@ import TextareaAutosize from '@mui/material/TextareaAutosize';
 import NavBar2 from './Navbar2';
 
 const Container = styled(Box)(({ theme }) => ({
-    margin: '50px 100px',
+    margin: '0px 10px 10px 50px',
     [theme.breakpoints.down('md')]: {
         margin: 0
     }
@@ -270,8 +270,8 @@ const ImagePreviewContainer = styled(Box)({
 
 const ImageContainer = styled(Box)({
     position: 'relative',
-    width: '100px',
-    height: '100px',
+    width: '300px',
+    height: '300px',
     overflow: 'hidden',
     '& img': {
         width: '100%',
