@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import NavBar2 from './Navbar2';
 import { useLocation } from 'react-router-dom';
-import './Viewproducts.css'; // Add a CSS file for styling the slideshow
+import './Viewproducts.css';
 
 const ViewProductsPage = () => {
   const location = useLocation();
@@ -10,10 +10,23 @@ const ViewProductsPage = () => {
 
   const [products, setProducts] = useState([]);
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
+  const [editingProduct, setEditingProduct] = useState(null);
+  const [formData, setFormData] = useState({
+    adTitle: '',
+    description: '',
+    price: '',
+    category: '',
+  });
+
+  const [shouldReload, setShouldReload] = useState(false); // State to track reload
 
   useEffect(() => {
-    if (!userId) return; // Ensure userId is present before making the API call
+    if (!userId) return;
 
+    fetchProducts();
+  }, [userId, shouldReload]); // Adding shouldReload as a dependency
+
+  const fetchProducts = () => {
     fetch(`https://uniswap-backend-gj25.onrender.com/api/products3/${userId}`)
       .then(response => {
         if (!response.ok) {
@@ -26,19 +39,72 @@ const ViewProductsPage = () => {
       })
       .catch(error => {
         console.error('Error fetching products:', error);
-        // Handle error, e.g., redirect to an error page
       });
-  }, [userId]);
+  };
 
-  const handleEditProduct = (productId) => {
-    // Handle edit product action
+  const handleEditProduct = (product) => {
+    setEditingProduct(product);
+    setFormData({
+      adTitle: product.adTitle,
+      description: product.description,
+      price: product.price,
+      category: product.category,
+    });
+  };
+
+  const handleFormChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prevData => ({
+      ...prevData,
+      [name]: value
+    }));
+  };
+
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch(`https://uniswap-backend-gj25.onrender.com/api/editproduct/${editingProduct._id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to update product');
+      }
+
+      const updatedProduct = await response.json();
+      setProducts(prevProducts => prevProducts.map(product => (product._id === updatedProduct._id ? updatedProduct : product)));
+      setEditingProduct(null);
+      setShouldReload(!shouldReload); // Toggle shouldReload to trigger reload
+    } catch (error) {
+      console.error('Error updating product:', error);
+    }
+  };
+
+  const handleDeleteProduct = async (productId) => {
+    try {
+      const response = await fetch(`https://uniswap-backend-gj25.onrender.com/api/deleteproduct/${productId}`, {
+        method: 'DELETE',
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to delete product');
+      }
+
+      setProducts(prevProducts => prevProducts.filter(product => product._id !== productId));
+    } catch (error) {
+      console.error('Error deleting product:', error);
+    }
   };
 
   const [selectedProduct, setSelectedProduct] = useState(null);
 
   const openSlideshow = (product) => {
     setSelectedProduct(product);
-    setCurrentSlideIndex(0); // Reset to the first slide
+    setCurrentSlideIndex(0);
   };
 
   const closeSlideshow = () => {
@@ -46,14 +112,13 @@ const ViewProductsPage = () => {
   };
 
   const prevSlide = () => {
-    setCurrentSlideIndex((prevIndex) => (prevIndex === 0 ? selectedProduct.photos.length - 1 : prevIndex - 1));
+    setCurrentSlideIndex(prevIndex => (prevIndex === 0 ? selectedProduct.photos.length - 1 : prevIndex - 1));
   };
 
   const nextSlide = () => {
-    setCurrentSlideIndex((prevIndex) => (prevIndex === selectedProduct.photos.length - 1 ? 0 : prevIndex + 1));
+    setCurrentSlideIndex(prevIndex => (prevIndex === selectedProduct.photos.length - 1 ? 0 : prevIndex + 1));
   };
 
-  // Group products by category
   const groupedProducts = products.reduce((acc, product) => {
     const category = product.category;
     if (!acc[category]) {
@@ -86,7 +151,8 @@ const ViewProductsPage = () => {
                       />
                       <p>Price: ${product.price}</p>
                       <p>Description: {product.description}</p>
-                      <button onClick={() => handleEditProduct(product._id)}>Edit</button>
+                      <button onClick={() => handleEditProduct(product)}>Edit</button>
+                      <button onClick={() => handleDeleteProduct(product._id)}>Delete</button>
                       <button onClick={() => openSlideshow(product)}>View Photos</button>
                     </div>
                   </li>
@@ -114,9 +180,45 @@ const ViewProductsPage = () => {
             <button className="next" onClick={nextSlide}>&#10095;</button>
           </div>
         )}
+
+        {editingProduct && (
+          <div className="modal-overlay">
+            <div className="modal-content">
+              <span className="modal-close" onClick={() => setEditingProduct(null)}>&times;</span>
+              <div className="edit-product-form">
+                <h2>Edit Product</h2>
+                <form onSubmit={handleFormSubmit}>
+                  <div>
+                    <label>Title:</label>
+                    <input type="text" name="adTitle" value={formData.adTitle} onChange={handleFormChange} />
+                  </div>
+                  <div>
+                    <label>Description:</label>
+                    <textarea name="description" value={formData.description} onChange={handleFormChange}></textarea>
+                  </div>
+                  <div>
+                    <label>Price:</label>
+                    <input type="number" name="price" value={formData.price} onChange={handleFormChange} />
+                  </div>
+                  <div>
+                    <label>Category:</label>
+                    <input type="text" name="category" value={formData.category} onChange={handleFormChange} />
+                  </div>
+                  <button type="submit">Save Changes</button>
+                  <button type="button" onClick={() => setEditingProduct(null)}>Cancel</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </>
   );
 };
 
 export default ViewProductsPage;
+
+
+
+
+

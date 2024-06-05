@@ -1,3 +1,5 @@
+
+
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { FaTrash } from 'react-icons/fa';
@@ -12,6 +14,7 @@ const CartPage = () => {
   const userId = searchParams.get('userId');
 
   const [cartProducts, setCartProducts] = useState([]);
+  const [selectedProducts, setSelectedProducts] = useState({});
 
   useEffect(() => {
     const fetchCartProducts = async () => {
@@ -46,6 +49,13 @@ const CartPage = () => {
     fetchCartProducts();
   }, [userId]);
 
+  const handleProductSelection = (productId) => {
+    setSelectedProducts((prevSelectedProducts) => ({
+      ...prevSelectedProducts,
+      [productId]: !prevSelectedProducts[productId]
+    }));
+  };
+
   const removeFromCart = async (productId) => {
     try {
       const response = await fetch(`https://uniswap-backend-gj25.onrender.com/api/removecart/${userId}/${productId}`, { method: 'DELETE' });
@@ -54,55 +64,71 @@ const CartPage = () => {
       } else {
         toast.success("Product removed successfully!");
         setCartProducts(cartProducts.filter(product => product._id !== productId));
+        const newSelectedProducts = { ...selectedProducts };
+        delete newSelectedProducts[productId];
+        setSelectedProducts(newSelectedProducts);
       }
     } catch (error) {
       console.error('Error removing product from cart:', error);
     }
   };
 
-  const checkoutProduct = async (productId) => {
-    try {
-      const response = await fetch(`https://uniswap-backend-gj25.onrender.com/api/checkout`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ userId, productId }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to proceed to checkout');
-      }
-
-      toast.success('Product checkout successful!');
-      setCartProducts(cartProducts.filter(product => product._id !== productId));
-    } catch (error) {
-      console.error('Error during checkout:', error);
-      toast.error(error.message);
+  const checkoutSelected = async () => {
+    const selectedProductIds = Object.keys(selectedProducts).filter(productId => selectedProducts[productId]);
+    if (selectedProductIds.length === 0) {
+      toast.error('No products selected for checkout');
+      return;
     }
-  };
 
-  const checkoutAll = async () => {
-    try {
-      const response = await fetch(`https://uniswap-backend-gj25.onrender.com/api/checkout`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ userId }),
+    const selectedProductsData = cartProducts.filter(product => selectedProducts[product._id]);
+
+    // Group selected products by sellerId
+    const productsBySeller = selectedProductsData.reduce((acc, product) => {
+      if (!acc[product.userId]) {
+        acc[product.userId] = [];
+      }
+      acc[product.userId].push({
+        productId: product._id,
+        adTitle: product.productName,
+        description: product.description,
+        price: product.price,
+        category: product.category,
+        imageUrl: product.photos[0]
       });
+      return acc;
+    }, {});
 
-      if (!response.ok) {
-        throw new Error('Failed to proceed to checkout');
+    try {
+      for (const [sellerId, products] of Object.entries(productsBySeller)) {
+        const response = await fetch(`https://uniswap-backend-gj25.onrender.com/api/createorders`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ 
+            userId, 
+            sellerId,
+            products 
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to proceed to checkout');
+        }
       }
 
       toast.success('Checkout successful!');
-      setCartProducts([]);
+      setCartProducts(cartProducts.filter(product => !selectedProductIds.includes(product._id)));
+      setSelectedProducts({});
     } catch (error) {
       console.error('Error during checkout:', error);
       toast.error(error.message);
     }
   };
+
+  const totalSelectedPrice = cartProducts
+    .filter(product => selectedProducts[product._id])
+    .reduce((total, product) => total + product.price, 0);
 
   return (
     <>
@@ -119,20 +145,25 @@ const CartPage = () => {
           <div className="cart-container">
             {cartProducts.map(product => (
               <div key={product._id} className="cart-item">
+                <input
+                  type="checkbox"
+                  checked={!!selectedProducts[product._id]}
+                  onChange={() => handleProductSelection(product._id)}
+                />
                 <img src={product.photos[0]} alt={product.productName} />
                 <div className="cart-details">
                   <h3>{product.productName}</h3>
                   <p>Quantity: {product.quantity}</p>
                   <p>Price: ${product.price}</p>
                   <p>Description: {product.description}</p>
-                  <div className="buttons">
-                    <button onClick={() => removeFromCart(product._id)} className='remove-btn'><FaTrash className="remove-icon" /> Remove</button>
-                    <button onClick={() => checkoutProduct(product._id)} className='checkout-btn'>Checkout</button>
-                  </div>
+                  <button onClick={() => removeFromCart(product._id)} className='remove-btn'><FaTrash className="remove-icon" /> Remove</button>
                 </div>
               </div>
             ))}
-            <button className='checkout-btn' onClick={checkoutAll}>Proceed to Checkout All</button>
+            <div className="cart-footer">
+              <p>Total Price: ${totalSelectedPrice.toFixed(2)}</p>
+              <button className='checkout-btn' onClick={checkoutSelected}>Proceed to Checkout</button>
+            </div>
           </div>
         )}
       </div>
@@ -141,3 +172,5 @@ const CartPage = () => {
 };
 
 export default CartPage;
+
+
