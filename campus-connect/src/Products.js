@@ -19,7 +19,7 @@ const Products = () => {
 
   useEffect(() => {
     // Fetch products for the selected category from backend
-    axios.get(`https://uniswap-backend-gj25.onrender.com/api/products?category=${category}`)
+    axios.get(`https://uniswap-backend-gj25.onrender.com/api/products?category=${category}&userIdToExclude=${userId}`)
       .then(response => {
         setProducts(response.data);
       })
