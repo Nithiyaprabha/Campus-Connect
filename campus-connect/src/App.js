@@ -34,6 +34,8 @@ import Products from './Products';
 import WishlistPage from './Wishlist';
 import ViewProductsPage from './ViewProducts';
 import CartPage from './Cart';
+import OrderHistory from './OrderHistory';
+import ViewOrders from './ViewOrders';
 
 const App = () => {
   return (
@@ -52,6 +54,8 @@ const App = () => {
           <Route path="/wishlist" element={<WishlistPage />} />
           <Route path="/viewproducts" element={<ViewProductsPage />} />
           <Route path="/cart" element={<CartPage />} />
+          <Route path="/orderhistory" element={<OrderHistory />} />
+          <Route path="/vieworders" element={<ViewOrders />} />
         </Routes>
       </div>
     </Router>
