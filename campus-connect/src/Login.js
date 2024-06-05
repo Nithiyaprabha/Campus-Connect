@@ -310,6 +310,7 @@ import styled from 'styled-components';
 import { FaUser, FaLock, FaSignInAlt } from 'react-icons/fa';
 import background from './photo-1607237138185-eedd9c632b0b.avif';
 import './App.css';
+import NavBar from './NavBar';
 
 const Background = styled.div`
   background-image: url(${background});
@@ -473,7 +474,7 @@ const Login = () => {
   };
 
   return (
-    <Background>
+    <Background> 
       <LoginContainer>
         <Title><Icon><FaSignInAlt /></Icon>Welcome to Login</Title>
         <form onSubmit={handleSubmit}>
