@@ -223,7 +223,6 @@
 // }
 
 // export default AddProduct;
-
 import React, { useState, useEffect } from 'react';
 import { styled, Box, Button, InputBase, FormControl, Select, MenuItem } from '@mui/material';
 import { AddCircle as Add } from '@mui/icons-material';
@@ -250,15 +249,32 @@ const StyledFormControl = styled(FormControl)({
 });
 
 const InputTextField = styled(InputBase)({
-    fontSize: '25px',
+    fontSize: '18px',
     flex: '1',
     minWidth: '250px',
-    margin: '10px'
+    padding: '10px',
+    borderRadius: '5px',
+    border: '1px solid #ccc',
+    '&:focus': {
+        outline: 'none',
+        borderColor: '#4CAF50', // Green color
+    },
 });
 
 const AddProductButton = styled(Button)({
     marginLeft: 'auto',
-    marginTop: '10px'
+    marginTop: '10px',
+    fontSize: '16px',
+    padding: '10px 20px',
+    backgroundColor: '#4CAF50', // Green color
+    color: '#fff',
+    borderRadius: '5px',
+    border: 'none',
+    cursor: 'pointer',
+    transition: 'background-color 0.3s ease',
+    '&:hover': {
+        backgroundColor: '#45a049', // Darker green color
+    },
 });
 
 const ImagePreviewContainer = styled(Box)({
@@ -273,10 +289,12 @@ const ImageContainer = styled(Box)({
     width: '300px',
     height: '300px',
     overflow: 'hidden',
+    borderRadius: '5px',
+    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
     '& img': {
         width: '100%',
         height: '100%',
-        objectFit: 'cover'
+        objectFit: 'cover',
     }
 });
 
@@ -368,7 +386,6 @@ const AddProduct = () => {
         }
     }
 
-
     return (
         <>
         <NavBar2/>
@@ -397,7 +414,6 @@ const AddProduct = () => {
                         value={product.adTitle}
                         name='adTitle' 
                         placeholder="Ad Title"
-                        style={{border:"1px solid black"}} 
                     />
                     <InputTextField 
                         onChange={handleChange} 
@@ -405,13 +421,12 @@ const AddProduct = () => {
                         name='price' 
                         placeholder="Price" 
                         type="number"
-                        style={{border:"1px solid black"}}
                     />
                     <Select
                         value={category}
                         onChange={handleCategoryChange}
                         displayEmpty
-                        style={{ minWidth: '200px', margin: '10px',border:"1px solid black",padding:"2px" }}
+                        style={{ minWidth: '200px', margin: '10px' }}
                     >
                         <MenuItem value="" disabled>Select Category</MenuItem>
                         <MenuItem value="Fruits & Vegetables">Fruits & Vegetables</MenuItem>
@@ -435,7 +450,7 @@ const AddProduct = () => {
                         onChange={handleImageChange}
                         multiple
                     />
-                    <Box style={{ width: '100%', textAlign: 'center', marginTop: '10px', fontSize: '14px' }}>
+                                        <Box style={{ width: '100%', textAlign: 'center', marginTop: '10px', fontSize: '14px' }}>
                         You can upload up to 5 images.
                     </Box>
                     <AddProductButton onClick={saveProduct} variant="contained" color="primary">Add Product</AddProductButton>
@@ -446,7 +461,7 @@ const AddProduct = () => {
                     value={product.description}
                     name='description'
                     onChange={handleChange}
-                    style={{ width: '100%', border: 'none', marginTop: '10px', fontSize: '18px', minHeight: '100px', resize: 'vertical',border:"1px solid black"}}
+                    style={{ width: '100%', border: '1px solid black', marginTop: '10px', fontSize: '18px', minHeight: '100px', resize: 'vertical' }}
                 />
             </Container>
         </>
@@ -454,3 +469,5 @@ const AddProduct = () => {
 }
 
 export default AddProduct;
+
+                       
