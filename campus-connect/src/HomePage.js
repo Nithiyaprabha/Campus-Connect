@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faLinkedin, faWhatsapp, faTwitter, faInstagram } from '@fortawesome/free-brands-svg-icons';
 
 const NavBar = styled.nav`
   display: flex;
@@ -15,9 +17,17 @@ const NavBar = styled.nav`
 `;
 
 const NavLogo = styled.div`
-  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem; /* Adjust font size as needed */
   font-weight: bold;
   color: white;
+`;
+
+const NavLogoImage = styled.img`
+  width: 60px; /* Adjust logo size as needed */
+  height: auto;
+  margin-right: 0.5rem;
 `;
 
 const NavLinks = styled.div`
@@ -29,30 +39,9 @@ const NavLink = styled.a`
   color: white;
   text-decoration: none;
   margin-left: 1.5rem;
-  font-size: 1rem;
+  font-size: 1.2rem;
   &:hover {
-    text-decoration: underline;
-  }
-`;
-
-const ButtonContainer = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
-const Button = styled.a`
-  display: inline-block;
-  padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 5px;
-  background-color: #2d72d9;
-  color: white;
-  font-size: 1rem;
-  text-decoration: none;
-  transition: background-color 0.3s ease;
-  margin-left: 1rem;
-  &:hover {
-    background-color: #1a5bb8;
+    text-decoration: none;
   }
 `;
 
@@ -79,52 +68,113 @@ const BackgroundImage = styled.div`
   filter: brightness(0.5);
 `;
 
-const Content = styled.div`
-  position: relative;
+const BoxContainer = styled.div`
+  position: absolute;
+  top: 55%;
+  right: 7%; /* Adjust right position as needed */
+  transform: translateY(-50%);
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  width: 450px; /* Adjust width as needed */
+  height: 500px; /* Adjust height as needed */
+`;
+
+const Image = styled.img`
+  width: 100%; /* Adjust size to fit container */
+  height: 100%; /* Adjust size to fit container */
+  border-radius: 10px; /* Ensure image follows container's border radius */
+  object-fit: cover; /* Ensure image covers the container */
+`;
+
+const DescriptionContainer = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 5%; /* Adjust left position */
+  transform: translateY(-50%);
+  color: white;
+  font-size: 1.2rem; /* Adjust font size as needed */
+  text-align: left;
+  max-width: calc(100% - (3% + 370px + 2rem)); /* Adjust maximum width */
+`;
+
+const ZigzagLine = styled.div`
+  &:nth-child(odd) {
+    text-align: center;
+    width: 95%;
+  }
+  &:nth-child(even) {
+    text-align: left;
+    width: 110%;
+  }
+`;
+
+const WelcomeHeader = styled.h2`
   text-align: center;
   color: white;
+  font-size: 3.5rem; /* Adjust font size as needed */
+  margin-bottom: 2rem; /* Adjust margin as needed */
 `;
 
-const HeroSection = styled.div`
-  max-width: 800px;
-  margin: auto;
+const SocialMediaIcons = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
 `;
 
-const HeroTitle = styled.h1`
-  font-size: 4rem;
-  margin-bottom: 1rem;
-  font-weight: bold;
+const IconLink = styled.a`
+  color: white;
+  margin: 0 1rem;
+  font-size: 2rem;
+  &:hover {
+    color: #ff9900; /* Change hover color as needed */
+  }
 `;
 
-const HeroSubtitle = styled.p`
-  font-size: 1.5rem;
-  margin-bottom: 2rem;
-`;
-
-const HomePage = () => {
+const Content = () => {
   return (
     <HomePageContainer>
       <BackgroundImage />
-      <Content>
-        <NavBar>
-          <NavLogo>Campus Connect</NavLogo>
-          <NavLinks>
-            <NavLink href="/">Home</NavLink>
-            <NavLink href="/about">About</NavLink>
-            <NavLink href="/help">Help</NavLink>
-          </NavLinks>
-          <ButtonContainer>
-            <Button href="/register">Sign Up</Button>
-            <Button href="/login">Sign In</Button>
-          </ButtonContainer>
-        </NavBar>
-        <HeroSection>
-          <HeroTitle>Welcome to Campus Connect!</HeroTitle>
-          <HeroSubtitle>Connect with fellow students and explore your campus community.</HeroSubtitle>
-        </HeroSection>
-      </Content>
+      <NavBar>
+        <NavLogo>
+          <NavLogoImage src="https://i.pinimg.com/564x/b0/a0/fc/b0a0fc29c504a389c7eab5083dff0811.jpg" alt="Campus Connect Logo" /> {/* Update with your logo image path */}
+          <span style={{ fontSize: '1.5rem' }}>Campus Connect</span> {/* Adjust font size as needed */}
+        </NavLogo>
+        <NavLinks>
+          <NavLink href="/">Home</NavLink>
+          <NavLink href="/register">Register</NavLink>
+          <NavLink href="/login">Login</NavLink>
+          <NavLink href="/about">About Us</NavLink>
+          <NavLink href="/help">Help</NavLink>
+        </NavLinks>
+      </NavBar>
+      <BoxContainer>
+        <Image src="https://img.freepik.com/premium-photo/record-album-with-box-that-says-music-it_655090-82238.jpg" alt="Profile Image" />
+        {/* Replace the src attribute with your image URL */}
+      </BoxContainer>
+      <DescriptionContainer>
+        <WelcomeHeader>Welcome to Campus Connect</WelcomeHeader>
+        <ZigzagLine>Our Campus Connect is a platform for the college students to buy, sell, and exchange items</ZigzagLine>
+        <ZigzagLine>the campus community.Whether you're looking for textbooks, electronics, or </ZigzagLine>
+        <ZigzagLine>furniture, Campus Connect provides a convenient and secure way to connect with fellow students.</ZigzagLine>
+        <ZigzagLine>Join our vibrant community today and discover a new way to shop and interact with us.</ZigzagLine>
+        <SocialMediaIcons>
+          <IconLink href="https://www.linkedin.com" target="_blank">
+            <FontAwesomeIcon icon={faLinkedin} />
+          </IconLink>
+          <IconLink href="https://www.whatsapp.com" target="_blank">
+            <FontAwesomeIcon icon={faWhatsapp} />
+          </IconLink>
+          <IconLink href="https://www.twitter.com" target="_blank">
+            <FontAwesomeIcon icon={faTwitter} />
+          </IconLink>
+          <IconLink href="https://www.instagram.com" target="_blank">
+            <FontAwesomeIcon icon={faInstagram} />
+          </IconLink>
+        </SocialMediaIcons>
+      </DescriptionContainer>
     </HomePageContainer>
   );
 };
 
-export default HomePage;
+export default Content;

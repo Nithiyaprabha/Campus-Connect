@@ -96,7 +96,7 @@ const WishlistPage = () => {
       <Navbar2 />
       <ToastContainer autoClose={2000} />
       <div>
-        <h1>Wishlist</h1>
+        <h1 className="wishlist-heading">Wishlist</h1>
         {Object.keys(groupedProducts).length === 0 ? (
           <div className="empty-wishlist-message">
             <h2>Your wishlist is empty</h2>
