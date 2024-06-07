@@ -216,7 +216,6 @@
 
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-// import './Categories.css';
 import NavBar2 from './Navbar2';
 
 const categories = [
@@ -249,12 +248,6 @@ const Home = () => {
       <NavBar2 />
       <style>
         {`
-          body {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-          
-          }
           .background {
             position: fixed;
             top: 0;
@@ -267,27 +260,29 @@ const Home = () => {
             z-index: -1;
           }
           .main-container {
-            position: relative;
-            z-index: 1;
-            width: 100%;
-            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
             padding: 20px;
             box-sizing: border-box;
             background: rgba(255, 255, 255, 0.8);
           }
           .categories-container {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 20px;
             padding: 20px;
             justify-content: center;
             align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
           }
           .category-box {
             text-align: center;
             cursor: pointer;
             background: rgba(255, 255, 255, 0.7);
-            padding: 10px;
+            padding: 20px;
             border-radius: 10px;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
           }
@@ -298,7 +293,13 @@ const Home = () => {
           .category-box img {
             width: 100%;
             height: auto;
-            border-radius: 5px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+          }
+          .category-box h3 {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #333;
           }
         `}
       </style>
