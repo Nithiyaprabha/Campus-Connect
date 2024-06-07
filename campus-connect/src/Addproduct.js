@@ -416,13 +416,13 @@ const AddProduct = () => {
                         <MenuItem value="" disabled>Select Category</MenuItem>
                         <MenuItem value="Fruits & Vegetables">Fruits & Vegetables</MenuItem>
                         <MenuItem value="Dairy & Bakery">Dairy & Bakery</MenuItem>
-                        <MenuItem value="Staples">Staples</MenuItem>
                         <MenuItem value="Snacks & Branded Foods">Snacks & Branded Foods</MenuItem>
                         <MenuItem value="Beverages">Beverages</MenuItem>
                         <MenuItem value="IOT Kits">IOT Kits</MenuItem>
                         <MenuItem value="Electronic Gadgets">Electronic Gadgets</MenuItem>
                         <MenuItem value="Books">Books</MenuItem>
-                        <MenuItem value="Stationaries">Stationaries</MenuItem>
+                        <MenuItem value="Sports Equipment">Sports Equipment</MenuItem>
+                        <MenuItem value="Music Instruments">Music Instruments</MenuItem>
                     </Select>
 
                     <label htmlFor="fileInput">
