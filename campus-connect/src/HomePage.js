@@ -61,7 +61,7 @@ const BackgroundImage = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url('https://i.pinimg.com/564x/54/87/a3/5487a3c99c2ec8b3bf6ab40efc1b6235.jpg'); /* Update with your image path */
+  background-image: url('https://image.slidesdocs.com/responsive-images/background/blue-business-technology-elegant-line-business-flat-business-powerpoint-background_731bdfa2a9__960_540.jpg'); /* Update with your image path */
   background-size: cover;
   background-position: center;
   z-index: -1;

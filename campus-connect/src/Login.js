@@ -304,16 +304,14 @@
 // export default Login;
 
 import React, { useState } from 'react';
-import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { FaUser, FaLock, FaSignInAlt } from 'react-icons/fa';
-import background from './photo-1607237138185-eedd9c632b0b.avif';
+import { FaUser, FaLock } from 'react-icons/fa';
+import background from './new89.png';
 import './App.css';
-import NavBar from './NavBar';
 
 const Background = styled.div`
-  background-image: url(${background});
+  background-image: url("https://image.slidesdocs.com/responsive-images/background/line-professional-frame-blue-square-shape-business-powerpoint-background_9c874dd0f4__960_540.jpg");
   height: 100vh;
   display: flex;
   justify-content: center;
@@ -321,31 +319,19 @@ const Background = styled.div`
   background-size: cover;
   background-position: center;
   position: relative;
-  overflow: hidden;
-  &:before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
-  }
 `;
 
 const LoginContainer = styled.div`
   background: rgba(255, 255, 255, 0.9);
   padding: 40px;
-  width: 400px;
-  border-radius: 15px;
+  width: 800px;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  border-radius: 15px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
   z-index: 1;
   backdrop-filter: blur(10px);
   animation: fadeIn 1s ease-in-out;
-  
+
   @keyframes fadeIn {
     from {
       opacity: 0;
@@ -356,6 +342,32 @@ const LoginContainer = styled.div`
       transform: translateY(0);
     }
   }
+`;
+
+const LeftSide = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 40px;
+`;
+
+const RightSide = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /* Centering vertically */
+  padding: 20px;
+`;
+
+const Title = styled.h2`
+  margin-bottom: 20px;
+  color: #333;
+  text-align: center;
+  font-family: 'Arial', sans-serif;
+  font-weight: bold;
+  font-size: 24px;
 `;
 
 const InputContainer = styled.div`
@@ -386,15 +398,26 @@ const Input = styled.input`
   font-size: 16px;
 `;
 
-const Button = styled.button`
+const CheckboxContainer = styled.div`
   width: 100%;
-  padding: 15px;
-  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+`;
+
+const CheckboxLabel = styled.label`
+  margin-left: 10px;
+  font-size: 14px;
+`;
+
+const Button = styled.button`
+  width: 50%;
+  padding: 10px; /* Reduced padding */
   background: #007bff;
   color: white;
   border: none;
   border-radius: 5px;
-  font-size: 18px;
+  font-size: 15px;
   cursor: pointer;
   transition: background 0.3s ease, transform 0.3s ease;
 
@@ -402,18 +425,6 @@ const Button = styled.button`
     background: #0056b3;
     transform: scale(1.05);
   }
-`;
-
-const Title = styled.h2`
-  margin-bottom: 30px;
-  color: #333;
-  text-align: center;
-  font-family: 'Arial', sans-serif;
-  font-weight: bold;
-  font-size: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 `;
 
 const LinksContainer = styled.div`
@@ -474,39 +485,50 @@ const Login = () => {
   };
 
   return (
-    <Background> 
+    <Background>
       <LoginContainer>
-        <Title><Icon><FaSignInAlt /></Icon>Welcome to Login</Title>
-        <form onSubmit={handleSubmit}>
-          <InputContainer>
-            <Icon><FaUser /></Icon>
-            <Input
-              type="email"
-              name="email"
-              placeholder="Email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-            />
-          </InputContainer>
-          <InputContainer>
-            <Icon><FaLock /></Icon>
-            <Input
-              type="password"
-              name="password"
-              placeholder="Password"
-              value={formData.password}
-              onChange={handleChange}
-              required
-            />
-          </InputContainer>
-          <Button type="submit">Login</Button>
-        </form>
-        {message && <p>{message}</p>}
-        <LinksContainer>
-          <StyledLink to="/forgot-password">Forgot Password?</StyledLink>
-          <StyledLink to="/register">Create an Account</StyledLink>
-        </LinksContainer>
+        <LeftSide>
+          <img src={background} alt="Illustration" />
+        </LeftSide>
+        <RightSide>
+          <Title>Login to Campus Connect</Title>
+          <form onSubmit={handleSubmit}>
+            <InputContainer>
+              <Icon><FaUser /></Icon>
+              <Input
+                type="email"
+                name="email"
+                placeholder="Email"
+                value={formData.email}
+                onChange={handleChange}
+                required
+              />
+            </InputContainer>
+            <InputContainer>
+              <Icon><FaLock /></Icon>
+              <Input
+                type="password"
+                name="password"
+                placeholder="Password"
+                value={formData.password}
+                onChange={handleChange}
+                required
+              />
+            </InputContainer>
+           
+            <CheckboxContainer>
+              <input type="checkbox" name="remember" id="remember" />
+              <CheckboxLabel htmlFor="remember">Remember Me</CheckboxLabel>
+            </CheckboxContainer>
+            <br></br>
+            <Button type="submit">Login</Button>
+          </form>
+          {message && <p>{message}</p>}
+          <LinksContainer>
+            <StyledLink to="/forgot-password">Forgot Password?</StyledLink>
+            <StyledLink to="/register">Sign Up</StyledLink>
+          </LinksContainer>
+        </RightSide>
       </LoginContainer>
     </Background>
   );
