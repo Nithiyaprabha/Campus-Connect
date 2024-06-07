@@ -1,78 +1,112 @@
+/* Products container */
 .Products {
-    padding: 20px;
-  }
-  
-  .product-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-  }
-  
-  .product {
-    border: 1px solid #ccc;
-    padding: 10px;
-    width: calc(25% - 20px);
-    box-sizing: border-box;
-    text-align: center;
-  }
-  
-  .product img {
-    max-width: 100%;
-    height: auto;
-    cursor: pointer;
-  }
-  
-  button {
-    display: block;
-    margin: 10px auto;
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    cursor: pointer;
-  }
-  
-  button:hover {
-    background-color: #0056b3;
-  }
-  
-  .react-modal-content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    right: auto;
-    bottom: auto;
-    margin-right: -50%;
-    transform: translate(-50%, -50%);
-    background: white;
-    padding: 20px;
-    box-shadow: 0 5px 15px rgba(0,0,0,.5);
-  }
-  
-  .slick-arrow {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 30px;
-    height: 30px;
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
-    font-size: 24px;
-    z-index: 1;
-    cursor: pointer;
-  }
-  
-  .slick-next {
-    right: 10px;
-  }
-  
-  .slick-prev {
-    left: 10px;
-  }
-  
-  .slider-image img {
-    width: 500px;  /* Set a fixed width for the images */
-    height: auto;
-    margin: auto;
-  }
-  
+  padding: 20px;
+  max-width: 600px; /* Reduce the maximum width */
+  margin: 0 auto;
+}
+
+/* Products title */
+.Products h1 {
+  text-align: center;
+  font-size: 2rem;
+  color: #136736;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+/* Product list */
+.product-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+/* Product item */
+.product {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Product image */
+.product img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* Product title */
+.product h2 {
+  font-size: 1.2rem;
+  color: #212529;
+  margin-top: 8px;
+}
+
+/* Product description */
+.product p {
+  margin: 5px 0;
+  font-size: 0.9rem;
+  color: #495057;
+}
+
+/* Product price */
+.product-price {
+  font-size: 1rem;
+  color: #007bff;
+  margin-top: 8px;
+}
+
+/* Add to cart and wishlist buttons */
+.product button {
+  padding: 8px 12px;
+  margin-top: 8px;
+  margin-right: 8px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.product button:last-child {
+  margin-right: 0;
+}
+
+.product button:hover {
+  background-color: #0056b3;
+}
+
+/* No products message */
+.product-list p {
+  text-align: center;
+  font-size: 1rem;
+  color: #555;
+  margin-top: 20px;
+}
+
+/* Modal close button */
+.modal-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  color: #555;
+  cursor: pointer;
+  outline: none;
+}
