@@ -1,3 +1,5 @@
+// CartPage.js
+
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { FaTrash } from 'react-icons/fa';
@@ -133,7 +135,7 @@ const CartPage = () => {
       <Navbar2 />
       <ToastContainer autoClose={2000} />
       <div>
-        <h1>Cart</h1>
+        <h1 className='cart-heading'>Cart</h1>
         {cartProducts.length === 0 ? (
           <div className="empty-cart-message">
             <h2>Your cart is empty</h2>
@@ -142,21 +144,33 @@ const CartPage = () => {
         ) : (
           <div className="cart-container">
             {cartProducts.map(product => (
-              <div key={product._id} className="cart-item">
-                <input
-                  type="checkbox"
-                  checked={!!selectedProducts[product._id]}
-                  onChange={() => handleProductSelection(product._id)}
-                />
-                <img src={product.photos[0]} alt={product.productName} />
-                <div className="cart-details">
-                  <h3>{product.productName}</h3>
-                  <p>Quantity: {product.quantity}</p>
-                  <p>Price: ${product.price}</p>
-                  <p>Description: {product.description}</p>
-                  <button onClick={() => removeFromCart(product._id)} className='remove-btn'><FaTrash className="remove-icon" /> Remove</button>
-                </div>
-              </div>
+              // CartPage.js
+
+// Inside the cart item div:
+<div key={product._id} className="cart-item">
+  <div className="cart-item-details">
+    <div className="cart-details">
+      <h3>{product.productName}</h3>
+      <p>Quantity: {product.quantity}</p>
+      <p>Description: {product.description}</p>
+      <p>Price: ${product.price}</p>
+      <button onClick={() => removeFromCart(product._id)} className='remove-btn'><FaTrash className="remove-icon" /> Remove</button>
+    </div>
+    <div className="cart-item-checkbox">
+      <input
+        type="checkbox"
+        id={`productCheckbox-${product._id}`}
+        checked={!!selectedProducts[product._id]}
+        onChange={() => handleProductSelection(product._id)}
+      />
+      <label htmlFor={`productCheckbox-${product._id}`}>Select for Checkout</label>
+    </div>
+  </div>
+  <div className="cart-item-img">
+    <img src={product.photos[0]} alt={product.productName} />
+  </div>
+</div>
+
             ))}
             <div className="cart-footer">
               <p>Total Price: ${totalSelectedPrice.toFixed(2)}</p>
@@ -170,5 +184,3 @@ const CartPage = () => {
 };
 
 export default CartPage;
-
-
