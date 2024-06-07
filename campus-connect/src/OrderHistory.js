@@ -50,7 +50,7 @@ const OrderHistory = () => {
             font-size: 2.5rem;
             font-family: 'Alegreya', serif;
             font-weight: bold;
-            color: #136736;
+            color: #000000;
             margin-top: 20px;
             margin-bottom: 40px;
             text-transform: uppercase;
