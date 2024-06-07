@@ -305,7 +305,131 @@
 
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+import { FaUser, FaLock, FaSignInAlt } from 'react-icons/fa';
+import background from './photo-1607237138185-eedd9c632b0b.avif';
 import './App.css';
+import NavBar from './NavBar';
+
+const Background = styled.div`
+  background-image: url(${background});
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  overflow: hidden;
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+  }
+`;
+
+const LoginContainer = styled.div`
+  background: rgba(255, 255, 255, 0.9);
+  padding: 40px;
+  width: 400px;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  z-index: 1;
+  backdrop-filter: blur(10px);
+  animation: fadeIn 1s ease-in-out;
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+`;
+
+const InputContainer = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+  background: #f1f1f1;
+  border-radius: 5px;
+  padding: 10px;
+  transition: border-color 0.3s ease;
+
+  &:focus-within {
+    border: 1px solid #007bff;
+  }
+`;
+
+const Icon = styled.div`
+  margin-right: 10px;
+  color: #555;
+`;
+
+const Input = styled.input`
+  width: 100%;
+  border: none;
+  background: none;
+  outline: none;
+  font-size: 16px;
+`;
+
+const Button = styled.button`
+  width: 100%;
+  padding: 15px;
+  margin-top: 20px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.3s ease;
+
+  &:hover {
+    background: #0056b3;
+    transform: scale(1.05);
+  }
+`;
+
+const Title = styled.h2`
+  margin-bottom: 30px;
+  color: #333;
+  text-align: center;
+  font-family: 'Arial', sans-serif;
+  font-weight: bold;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const LinksContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+`;
+
+const StyledLink = styled(Link)`
+  color: #007bff;
+  text-decoration: none;
+  font-size: 14px;
+  &:hover {
+    text-decoration: underline;
+  }
+`;
 
 const Login = () => {
   const navigate = useNavigate();
@@ -399,38 +523,41 @@ const Login = () => {
   };
 
   return (
-    <div style={styles.container}>
-      <div style={styles.formContainer}>
-        <h2>Welcome to Login</h2>
+    <Background> 
+      <LoginContainer>
+        <Title><Icon><FaSignInAlt /></Icon>Welcome to Login</Title>
         <form onSubmit={handleSubmit}>
-          <input
-            type="email"
-            name="email"
-            placeholder="Email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-            style={styles.formInput}
-          />
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            value={formData.password}
-            onChange={handleChange}
-            required
-            style={styles.formInput}
-          />
-          <button type="submit" style={styles.formButton}>Login</button>
+          <InputContainer>
+            <Icon><FaUser /></Icon>
+            <Input
+              type="email"
+              name="email"
+              placeholder="Email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
+          </InputContainer>
+          <InputContainer>
+            <Icon><FaLock /></Icon>
+            <Input
+              type="password"
+              name="password"
+              placeholder="Password"
+              value={formData.password}
+              onChange={handleChange}
+              required
+            />
+          </InputContainer>
+          <Button type="submit">Login</Button>
         </form>
-        {message && <p style={styles.message}>{message}</p>}
-        <p>
-          <Link to="/forgot-password" style={styles.link}>Forgot Password?</Link>
-          <span> | </span>
-          <Link to="/register" style={styles.link}>Create an Account</Link>
-        </p>
-      </div>
-    </div>
+        {message && <p>{message}</p>}
+        <LinksContainer>
+          <StyledLink to="/forgot-password">Forgot Password?</StyledLink>
+          <StyledLink to="/register">Create an Account</StyledLink>
+        </LinksContainer>
+      </LoginContainer>
+    </Background>
   );
 };
 
