@@ -214,7 +214,7 @@ function NavBar2() {
 
   const styles = {
     navBar: {
-      backgroundColor: 'lightskyblue',
+      backgroundColor:'#000026',
       padding: '1rem',
       display: 'flex',
       justifyContent: 'space-between',
