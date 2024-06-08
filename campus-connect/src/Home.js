@@ -137,11 +137,14 @@ const Home = () => {
       <NavBar2 />
       <style>
         {`
+<<<<<<< HEAD
           body {
             margin: 0;
             padding: 0;
             font-family: Arial, sans-serif;
           }
+=======
+>>>>>>> origin/main
           .background {
             position: fixed;
             top: 0;
@@ -154,10 +157,17 @@ const Home = () => {
             z-index: -1;
           }
           .main-container {
+<<<<<<< HEAD
             position: relative;
             z-index: -1;
             width: 100%;
             height: 100%;
+=======
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+>>>>>>> origin/main
             padding: 20px;
             box-sizing: border-box;
             background: rgba(255, 255, 255, 0.8);
@@ -165,17 +175,24 @@ const Home = () => {
           }
           .categories-container {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 20px;
             padding: 30px;
             justify-content: center;
             align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
           }
           .category-box {
             text-align: center;
             cursor: pointer;
+<<<<<<< HEAD
             background: white;
             padding: 10px;
+=======
+            background: rgba(255, 255, 255, 0.7);
+            padding: 20px;
+>>>>>>> origin/main
             border-radius: 10px;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
           }
@@ -185,9 +202,20 @@ const Home = () => {
           }
           .category-box img {
             width: 100%;
+<<<<<<< HEAD
             height: 220px; /* Set a fixed height */
             object-fit: cover; /* Maintain aspect ratio and cover the area */
             border-radius: 5px;
+=======
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 10px;
+          }
+          .category-box h3 {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #333;
+>>>>>>> origin/main
           }
         `}
       </style>

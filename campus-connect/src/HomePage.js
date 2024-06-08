@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLinkedin, faWhatsapp, faTwitter, faInstagram } from '@fortawesome/free-brands-svg-icons';
+import logo from './new5678.png'
 
 const NavBar = styled.nav`
   display: flex;
@@ -19,13 +20,13 @@ const NavBar = styled.nav`
 const NavLogo = styled.div`
   display: flex;
   align-items: center;
-  font-size: 1.5rem; /* Adjust font size as needed */
+  font-size: 1.5rem; 
   font-weight: bold;
   color: white;
 `;
 
 const NavLogoImage = styled.img`
-  width: 60px; /* Adjust logo size as needed */
+  width: 60px; 
   height: auto;
   margin-right: 0.5rem;
 `;
@@ -40,8 +41,9 @@ const NavLink = styled.a`
   text-decoration: none;
   margin-left: 1.5rem;
   font-size: 1.2rem;
+  transition: color 0.3s ease; /* Add transition for smooth color change */
   &:hover {
-    text-decoration: none;
+    color: #ff9900; /* Change hover color */
   }
 `;
 
@@ -61,7 +63,7 @@ const BackgroundImage = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url('https://i.pinimg.com/564x/54/87/a3/5487a3c99c2ec8b3bf6ab40efc1b6235.jpg'); /* Update with your image path */
+  background-image: url('https://image.slidesdocs.com/responsive-images/background/blue-technology-abstract-square-stereoscopic-business-powerpoint-background_d80565c6b6__960_540.jpg');
   background-size: cover;
   background-position: center;
   z-index: -1;
@@ -71,31 +73,35 @@ const BackgroundImage = styled.div`
 const BoxContainer = styled.div`
   position: absolute;
   top: 55%;
-  right: 7%; /* Adjust right position as needed */
+  right: 7%;
   transform: translateY(-50%);
   background-color: #ffffff;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  width: 450px; /* Adjust width as needed */
-  height: 500px; /* Adjust height as needed */
+  width: 450px;
+  height: 500px;
+  transition: transform 0.3s ease; /* Add transition for smooth effect */
+  &:hover {
+    transform: translateY(-55%);
+  }
 `;
 
 const Image = styled.img`
-  width: 100%; /* Adjust size to fit container */
-  height: 100%; /* Adjust size to fit container */
-  border-radius: 10px; /* Ensure image follows container's border radius */
-  object-fit: cover; /* Ensure image covers the container */
+  width: 100%; 
+  height: 100%; 
+  border-radius: 10px; 
+  object-fit: cover; 
 `;
 
 const DescriptionContainer = styled.div`
   position: absolute;
   top: 50%;
-  left: 5%; /* Adjust left position */
+  left: 5%; 
   transform: translateY(-50%);
   color: white;
-  font-size: 1.2rem; /* Adjust font size as needed */
+  font-size: 1.2rem; 
   text-align: left;
-  max-width: calc(100% - (3% + 370px + 2rem)); /* Adjust maximum width */
+  max-width: calc(100% - (3% + 370px + 2rem)); 
 `;
 
 const ZigzagLine = styled.div`
@@ -112,8 +118,8 @@ const ZigzagLine = styled.div`
 const WelcomeHeader = styled.h2`
   text-align: center;
   color: white;
-  font-size: 3.5rem; /* Adjust font size as needed */
-  margin-bottom: 2rem; /* Adjust margin as needed */
+  font-size: 3.5rem; 
+  margin-bottom: 2rem; 
 `;
 
 const SocialMediaIcons = styled.div`
@@ -127,7 +133,7 @@ const IconLink = styled.a`
   margin: 0 1rem;
   font-size: 2rem;
   &:hover {
-    color: #ff9900; /* Change hover color as needed */
+    color: #ff9900; 
   }
 `;
 
@@ -137,20 +143,19 @@ const Content = () => {
       <BackgroundImage />
       <NavBar>
         <NavLogo>
-          <NavLogoImage src="https://i.pinimg.com/564x/b0/a0/fc/b0a0fc29c504a389c7eab5083dff0811.jpg" alt="Campus Connect Logo" /> {/* Update with your logo image path */}
-          <span style={{ fontSize: '1.5rem' }}>Campus Connect</span> {/* Adjust font size as needed */}
+          <NavLogoImage src={logo} alt="Campus Connect Logo" /> 
+          <span style={{ fontSize: '1.5rem' }}>Campus Connect</span> 
         </NavLogo>
         <NavLinks>
           <NavLink href="/">Home</NavLink>
           <NavLink href="/register">Register</NavLink>
           <NavLink href="/login">Login</NavLink>
           <NavLink href="/about">About Us</NavLink>
-          <NavLink href="/help">Help</NavLink>
+          
         </NavLinks>
       </NavBar>
       <BoxContainer>
         <Image src="https://img.freepik.com/premium-photo/record-album-with-box-that-says-music-it_655090-82238.jpg" alt="Profile Image" />
-        {/* Replace the src attribute with your image URL */}
       </BoxContainer>
       <DescriptionContainer>
         <WelcomeHeader>Welcome to Campus Connect</WelcomeHeader>
