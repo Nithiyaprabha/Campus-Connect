@@ -4,6 +4,51 @@ import styled from 'styled-components';
 import { FaUser, FaLock } from 'react-icons/fa';
 import background from './new89.png';
 import './App.css';
+import logo from './new5678.png'
+
+const NavBar = styled.nav`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: transparent;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 10;
+`;
+
+const NavLogo = styled.div`
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem; 
+  font-weight: bold;
+  color: black;
+`;
+
+const NavLogoImage = styled.img`
+  width: 60px; 
+  height: auto;
+  margin-right: 0.5rem;
+`;
+
+const NavLinks = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const NavLink = styled.a`
+  color: black;
+  text-decoration: none;
+  margin-left: 1.5rem;
+  font-size: 1.2rem;
+  transition: color 0.3s ease; /* Add transition for smooth color change */
+  &:hover {
+    color: #ff9900; /* Change hover color */
+  }
+`;
+
 
 const Background = styled.div`
   background-image: url("https://image.slidesdocs.com/responsive-images/background/line-professional-frame-blue-square-shape-business-powerpoint-background_9c874dd0f4__960_540.jpg");
@@ -169,6 +214,19 @@ const Register = () => {
 
   return (
     <Background>
+      <NavBar>
+        <NavLogo>
+          <NavLogoImage src={logo} alt="Campus Connect Logo" /> 
+          <span style={{ fontSize: '1.5rem' }}>Campus Connect</span> 
+        </NavLogo>
+        <NavLinks>
+          <NavLink href="/">Home</NavLink>
+          <NavLink href="/register">Register</NavLink>
+          <NavLink href="/login">Login</NavLink>
+          <NavLink href="/about">About Us</NavLink>
+          
+        </NavLinks>
+      </NavBar>
       <LoginContainer>
         <LeftSide>
           <img src={background} alt="Illustration" />
