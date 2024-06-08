@@ -236,7 +236,8 @@ const Container = styled(Box)(({ theme }) => ({
     margin: '0px 10px 10px 50px',
     [theme.breakpoints.down('md')]: {
         margin: 0
-    }
+    },
+    // backgroundImage:'url(https://i.pinimg.com/originals/0c/ea/6f/0cea6fabe4d9d5256e0d1b2474927732.jpg)'
 }));
 
 const StyledFormControl = styled(FormControl)({
@@ -429,15 +430,13 @@ const AddProduct = () => {
                         style={{ minWidth: '200px', margin: '10px' }}
                     >
                         <MenuItem value="" disabled>Select Category</MenuItem>
-                        <MenuItem value="Fruits & Vegetables">Fruits & Vegetables</MenuItem>
-                        <MenuItem value="Dairy & Bakery">Dairy & Bakery</MenuItem>
-                        <MenuItem value="Snacks & Branded Foods">Snacks & Branded Foods</MenuItem>
-                        <MenuItem value="Beverages">Beverages</MenuItem>
                         <MenuItem value="IOT Kits">IOT Kits</MenuItem>
                         <MenuItem value="Electronic Gadgets">Electronic Gadgets</MenuItem>
                         <MenuItem value="Books">Books</MenuItem>
                         <MenuItem value="Sports Equipment">Sports Equipment</MenuItem>
                         <MenuItem value="Music Instruments">Music Instruments</MenuItem>
+                        <MenuItem value="Others">Others</MenuItem>
+                        
                     </Select>
 
                     <label htmlFor="fileInput">
