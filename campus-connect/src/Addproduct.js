@@ -431,12 +431,17 @@ const AddProduct = () => {
                     >
                         <MenuItem value="" disabled>Select Category</MenuItem>
                         <MenuItem value="IOT Kits">IOT Kits</MenuItem>
+                        <MenuItem value="Stationaries">Stationaries</MenuItem>
                         <MenuItem value="Electronic Gadgets">Electronic Gadgets</MenuItem>
                         <MenuItem value="Books">Books</MenuItem>
                         <MenuItem value="Sports Equipment">Sports Equipment</MenuItem>
+<<<<<<< HEAD
                         <MenuItem value="Music Instruments">Music Instruments</MenuItem>
                         <MenuItem value="Others">Others</MenuItem>
                         
+=======
+                        <MenuItem value="Music Instruments">s</MenuItem>
+>>>>>>> origin/main
                     </Select>
 
                     <label htmlFor="fileInput">
