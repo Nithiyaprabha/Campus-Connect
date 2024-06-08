@@ -238,7 +238,7 @@ const categories = [
   { id: 4, name: 'IOT Kits', image: 'https://5.imimg.com/data5/SELLER/Default/2023/9/347979126/TZ/JW/NV/198942079/iot-starter-kit-for-getting-started-with-iot-500x500.png' },
   { id: 5, name: 'Electronic Gadgets', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0TwIC2ed15bmoLfTsFPLmKu5bXYSMzjSFhQ&s' },
   { id: 7, name: 'Sports Equipment', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2XiBKa4r9iA1v0gYGRUGcP2RCQYhVe32cFg&s' },
-  { id: 10, name: 'Hostel Supplies', image: 'https://files.ekmcdn.com/hotelsupplies/resources/design/hsl-logo_2020.png' },
+  { id: 10, name: 'Hostel Supplies', image: 'https://www.shutterstock.com/image-vector/hostel-logo-reception-signboard-banner-260nw-1515562760.jpg' },
   { id: 8, name: 'Music instruments', image: 'https://media.istockphoto.com/id/894058154/photo/musical-instruments.jpg?s=612x612&w=0&k=20&c=uB0TFyqeY1wu1BPyH2EB7NMoOCaSb86pk7YNQ5QVCGQ=' },
   { id: 9, name: 'Others', image: 'https://cdn6.aptoide.com/imgs/e/d/5/ed53edb4d39029d34c4548bd6e90f371_icon.png' },
 ];
@@ -278,7 +278,7 @@ const Home = () => {
           }
           .main-container {
             position: relative;
-            z-index: 1;
+            z-index: -1;
             width: 100%;
             height: 100%;
             display: flex;
