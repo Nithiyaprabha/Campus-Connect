@@ -435,6 +435,7 @@ const AddProduct = () => {
                         <MenuItem value="Electronic Gadgets">Electronic Gadgets</MenuItem>
                         <MenuItem value="Books">Books</MenuItem>
                         <MenuItem value="Sports Equipment">Sports Equipment</MenuItem>
+                        <MenuItem value="Hostel Supplies">Hostel Supplies</MenuItem>
 
                         <MenuItem value="Music Instruments">Music Instruments</MenuItem>
                         <MenuItem value="Others">Others</MenuItem>

@@ -233,16 +233,14 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import NavBar2 from './Navbar2';
 
 const categories = [
- 
   { id: 2, name: 'Books', image: 'https://miro.medium.com/v2/resize:fit:1200/1*S81O15rjKfG-BFdnNC6-GQ.jpeg' },
-  // { id: 3, name: 'Stationaries', image: 'https://media.istockphoto.com/id/485725200/photo/school-and-office-accessories-on-wooden-background.jpg?s=612x612&w=0&k=20&c=PWgiIA-7_QDC_PXnEhwZqDLDDzrNMIxxJjBeD4h4oLM=' },
+  { id: 3, name: 'Stationaries', image: 'https://media.istockphoto.com/id/485725200/photo/school-and-office-accessories-on-wooden-background.jpg?s=612x612&w=0&k=20&c=PWgiIA-7_QDC_PXnEhwZqDLDDzrNMIxxJjBeD4h4oLM=' },
   { id: 4, name: 'IOT Kits', image: 'https://5.imimg.com/data5/SELLER/Default/2023/9/347979126/TZ/JW/NV/198942079/iot-starter-kit-for-getting-started-with-iot-500x500.png' },
   { id: 5, name: 'Electronic Gadgets', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0TwIC2ed15bmoLfTsFPLmKu5bXYSMzjSFhQ&s' },
-  { id: 6, name: 'Snacks & Branded Foods', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUU0RJFFZHWU9JCiSdfaFYriFErxQvpWHSfA&s' },
-  { id: 7, name: 'Sports Equipment', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2XiBKa4r9iA1v0gYGRUGcP2RCQYhVe32cFg&s'},
-  { id: 8, name: 'Music instruments', image: 'https://media.istockphoto.com/id/894058154/photo/musical-instruments.jpg?s=612x612&w=0&k=20&c=uB0TFyqeY1wu1BPyH2EB7NMoOCaSb86pk7YNQ5QVCGQ='},
-  { id: 9, name: 'Fruits & Vegetables', image: 'https://media.istockphoto.com/id/1409236261/photo/healthy-food-healthy-eating-background-fruit-vegetable-berry-vegetarian-eating-superfood.jpg?s=612x612&w=0&k=20&c=kYZKgwsQbH_Hscl3mPRKkus0h1OPuL0TcXxZcO2Zdj0='},
-  { id:10, name: 'Dairy & Bakery', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmIEkNeUI8VfwML0Ools5lzizh-TRN711-Hg&s'}
+  { id: 7, name: 'Sports Equipment', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2XiBKa4r9iA1v0gYGRUGcP2RCQYhVe32cFg&s' },
+  { id: 10, name: 'Hostel Supplies', image: 'https://files.ekmcdn.com/hotelsupplies/resources/design/hsl-logo_2020.png' },
+  { id: 8, name: 'Music instruments', image: 'https://media.istockphoto.com/id/894058154/photo/musical-instruments.jpg?s=612x612&w=0&k=20&c=uB0TFyqeY1wu1BPyH2EB7NMoOCaSb86pk7YNQ5QVCGQ=' },
+  { id: 9, name: 'Others', image: 'https://cdn6.aptoide.com/imgs/e/d/5/ed53edb4d39029d34c4548bd6e90f371_icon.png' },
 ];
 
 const Home = () => {
@@ -280,7 +278,7 @@ const Home = () => {
           }
           .main-container {
             position: relative;
-            z-index: -1;
+            z-index: 1;
             width: 100%;
             height: 100%;
             display: flex;
@@ -309,15 +307,17 @@ const Home = () => {
             padding: 10px;
             border-radius: 10px;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            z-index: 1;
           }
           .category-box:hover {
             transform: scale(1.05);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 2;
           }
           .category-box img {
             width: 100%;
-            height: 200px; /* Fixed height */
-            object-fit: cover; /* Maintain aspect ratio and cover the area */
+            height: 200px;
+            object-fit: cover;
             border-radius: 10px;
             margin-bottom: 10px;
           }
@@ -331,7 +331,7 @@ const Home = () => {
       <div className="background"></div>
       <div className="main-container">
         <div className="categories-container">
-          {categories.map(category => (
+          {categories.map((category) => (
             <div key={category.id} className="category-box" onClick={() => handleCategoryClick(category.name)}>
               <img src={category.image} alt={category.name} />
               <h3>{category.name}</h3>
