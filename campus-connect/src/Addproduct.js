@@ -419,10 +419,11 @@ const AddProduct = () => {
                         <MenuItem value="Snacks & Branded Foods">Snacks & Branded Foods</MenuItem>
                         <MenuItem value="Beverages">Beverages</MenuItem>
                         <MenuItem value="IOT Kits">IOT Kits</MenuItem>
+                        <MenuItem value="Stationaries">Stationaries</MenuItem>
                         <MenuItem value="Electronic Gadgets">Electronic Gadgets</MenuItem>
                         <MenuItem value="Books">Books</MenuItem>
                         <MenuItem value="Sports Equipment">Sports Equipment</MenuItem>
-                        <MenuItem value="Music Instruments">Music Instruments</MenuItem>
+                        <MenuItem value="Music Instruments">s</MenuItem>
                     </Select>
 
                     <label htmlFor="fileInput">
